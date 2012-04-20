@@ -1,0 +1,52 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:omid="http://omidbiz.com/datePicker"
+    template="/layout/template.xhtml">
+
+    <ui:define name="body">
+		
+		<h:form>
+			<rich:panel>
+				<f:facet name="header"><h:outputText value="#{messages['Batch']}" /></f:facet>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Batch_Name']}</ui:define>
+					<h:inputText value="#{batchHome.instance.name}" required="true"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Start_date']}</ui:define>
+					<rich:calendar value="#{batchHome.instance.startDate}" required="true" rendered="#{!schoolUtil.rtl}"></rich:calendar>
+					<omid:datePicker value="#{batchHome.instance.startDate}" required="true" rendered="#{schoolUtil.rtl}"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['End_Date']}</ui:define>
+					<rich:calendar value="#{batchHome.instance.endDate}" required="true" rendered="#{!schoolUtil.rtl}"></rich:calendar>
+					<omid:datePicker value="#{batchHome.instance.endDate}" required="true" rendered="#{schoolUtil.rtl}"/>
+				</s:decorate>
+				
+				<div style="clear:both;" />
+				
+			</rich:panel>
+			
+			<div class="actionButtons">
+	
+        	    <ui:include src="/layout/buttons.xhtml">
+            		<ui:param name="entityHome" value="#{batchHome}" />
+            		<ui:param name="view" value="member/batchList" />
+            	</ui:include>
+            
+        	</div>
+			
+			
+		</h:form>		
+
+    </ui:define>
+</ui:composition>

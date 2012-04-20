@@ -1,0 +1,16 @@
+#Wed Aug 06 19:35:32 BST 2008
+action.package=com.sm.action
+action.sources=/sm/src/hot
+eclipse.preferences.version=1
+model.package=com.sm.model
+model.sources=/sm/src/main
+seam.ejb.project=sm
+seam.project.connection.profile=
+seam.project.deployment.type=ear
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/sm/view
+seam.runtime.name=
+seam.test.creating=true
+seam.test.project=sm
+test.package=com.sm.test
+test.sources=/sm/src/test

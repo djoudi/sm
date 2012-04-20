@@ -1,0 +1,36 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:s="http://jboss.com/products/seam/taglib">
+
+			<h:commandButton id="save"
+                          value="#{messages['Button_Save']}"
+                         action="#{entityHome.persist}"                       
+                       rendered="#{!entityHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="#{messages['Button_Update']}"
+                         action="#{entityHome.update}"
+                       rendered="#{entityHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="#{messages['Button_Delete']}"
+                         action="#{entityHome.remove}"
+                      immediate="true"
+                       rendered="#{entityHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="#{messages['Button_Cancel']}"
+             propagation="end"
+                    view="/#{view}.xhtml"
+                rendered="#{entityHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="#{messages['Button_Cancel']}"
+             propagation="end"
+                    view="/#{view}.xhtml"
+                rendered="#{!entityHome.managed}"/>
+
+
+</ui:composition>

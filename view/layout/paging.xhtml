@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<s:link view="#{view}"
+		rendered="#{entityQuery.previousExists}"
+		value="#{messages.left}#{messages.left} First Page" id="firstPage">
+		<f:param name="firstResult" value="0" />
+	</s:link>
+
+	<s:link view="#{view}"
+		rendered="#{entityQuery.previousExists}"
+		value="#{messages.left} Previous Page" id="previousPage">
+		<f:param name="firstResult"
+			value="#{entityQuery.previousFirstResult}" />
+	</s:link>
+
+	<s:link view="#{view}"
+		rendered="#{entityQuery.nextExists}"
+		value="Next Page #{messages.right}" id="nextPage">
+		<f:param name="firstResult" value="#{entityQuery.nextFirstResult}" />
+	</s:link>
+
+	<s:link view="#{view}"
+		rendered="#{entityQuery.nextExists}"
+		value="Last Page #{messages.right}#{messages.right}" id="lastPage">
+		<f:param name="firstResult" value="#{entityQuery.lastFirstResult}" />
+	</s:link>
+</ui:composition>

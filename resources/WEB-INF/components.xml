@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+	xmlns:core="http://jboss.com/products/seam/core" xmlns:drools="http://jboss.com/products/seam/drools"
+	xmlns:international="http://jboss.com/products/seam/international"
+	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:persistence="http://jboss.com/products/seam/persistence"
+	xmlns:security="http://jboss.com/products/seam/security" xmlns:theme="http://jboss.com/products/seam/theme"
+	xmlns:web="http://jboss.com/products/seam/web" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/theme http://jboss.com/products/seam/theme-2.2.xsd  http://jboss.com/products/seam/international http://jboss.com/products/seam/international-2.2.xsd   http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd                  http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd                  http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.2.xsd                  http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.2.xsd                  http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd                  http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.2.xsd                  http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.2.xsd                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd">
+	<core:init debug="true" jndi-pattern="@jndiPattern@" />
+	<core:manager concurrent-request-timeout="500"
+		conversation-id-parameter="cid" conversation-timeout="120000"
+		parent-conversation-id-parameter="pid" />
+	<!-- Make sure this URL pattern is the same as that used by the Faces Servlet -->
+	<web:character-encoding-filter encoding="UTF-8"
+		override-client="true" url-pattern="*.seam" />
+	<web:hot-deploy-filter url-pattern="*.seam" />
+	<web:multipart-filter create-temp-files="true"
+		max-request-size="1000000" url-pattern="*.seam" />
+	<international:locale-config
+		default-locale="fa_IR" supported-locales="en fa_IR" />
+	<theme:theme-selector cookie-enabled="true">
+		<theme:available-themes>
+			<value>default_theme</value>
+			<value>persian_theme</value>
+		</theme:available-themes>
+	</theme:theme-selector>
+	<persistence:managed-persistence-context
+		auto-create="true" name="entityManager" persistence-unit-jndi-name="@puJndiName@" />
+	<drools:rule-base name="securityRules">
+		<drools:rule-files>
+			<value>/security.drl</value>
+		</drools:rule-files>
+	</drools:rule-base>
+	<security:rule-based-permission-resolver
+		security-rules="#{securityRules}" />
+	<security:identity authenticate-method="#{authenticator.authenticate}"
+		remember-me="true" />
+	<security:jpa-identity-store user-class="com.sm.model.Member"
+		role-class="com.sm.model.Role" />
+
+	<security:jpa-permission-store
+		user-permission-class="com.sm.model.Permission" />
+
+	<event type="org.jboss.seam.security.notLoggedIn">
+		<action execute="#{redirect.captureCurrentView}" />
+	</event>
+	<event type="org.jboss.seam.security.loginSuccessful">
+		<action execute="#{redirect.returnToCapturedView}" />
+	</event>
+	<mail:mail-session host="localhost" port="25" />
+
+	<factory auto-create="true" name="hibernateSession" value="#{entityManager.delegate}" />
+	<factory auto-create="true" name="httpRequest"
+		value="#{facesContext.externalContext.request}" />
+	<factory auto-create="true" name="httpResponse"
+		value="#{facesContext.externalContext.response}" />
+	<!-- For use with jBPM pageflow or process management <bpm:jbpm> <bpm:process-definitions></bpm:process-definitions> 
+		<bpm:pageflow-definitions></bpm:pageflow-definitions> </bpm:jbpm> -->
+</components>

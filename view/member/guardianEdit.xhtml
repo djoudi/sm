@@ -1,0 +1,106 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:omid="http://omidbiz.com/datePicker"
+    template="/layout/template.xhtml">
+
+    <ui:define name="body">
+		
+		<h:form>
+			
+			<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Student_Addmission_No']}</ui:define>
+					<h:inputText value="#{studentHome.instance.addmissionNo}" required="true" disabled="true"/>
+			</s:decorate>
+				
+			<rich:panel>
+				<f:facet name="header"><h:outputText value="#{messages['Guardian']}" /></f:facet>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['First_Name']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.firstName}" required="true"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Last_Name']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.lastName}"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Relationship']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.relationShip}" required="true"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Birth_Date']}</ui:define>
+					
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Education']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.education}"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Occupation']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.occupation}"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Income']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.income}"/>
+				</s:decorate>
+				
+				
+				
+				<div style="clear:both;" />
+				
+			</rich:panel>
+			
+			<rich:panel>
+				<f:facet name="header">#{messages['Contact_Detail']}</f:facet>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Address_Line1']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.guardianContactDetail.addressLine1}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Address_Line2']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.guardianContactDetail.addressLine2}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Phone']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.guardianContactDetail.phone}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Email']}</ui:define>
+					<h:inputText value="#{guardianHome.instance.guardianContactDetail.email}" />
+				</s:decorate>
+				
+				<div style="clear:both;" />
+				
+			</rich:panel>
+			
+			
+			<div class="actionButtons">
+	
+        	    <ui:include src="/layout/buttons.xhtml">
+            		<ui:param name="entityHome" value="#{guardianHome}" />
+            		<ui:param name="view" value="member/guardianList" />
+            	</ui:include>
+            
+        	</div>
+			
+			
+		</h:form>		
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,54 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:omid="http://omidbiz.com/datePicker"
+    template="/layout/template.xhtml">
+
+    <ui:define name="body">
+		
+		<h:form>
+			<rich:panel>
+				<f:facet name="header"><h:outputText value="#{messages['Course']}" /></f:facet>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Course_Batch']}</ui:define>
+					<h:selectOneMenu value="#{courseHome.instance.batch}">
+						<s:selectItems value="#{batchList.resultList}" var="_batch" label="#{_batch.name}" noSelectionLabel="-- #{messages['Please_Select']} --"/>
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Course_Name']}</ui:define>
+					<h:inputText value="#{courseHome.instance.name}" required="true"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Code']}</ui:define>
+					<h:inputText value="#{courseHome.instance.code}" />
+				</s:decorate>
+				
+				
+				<div style="clear:both;" />
+				
+			</rich:panel>
+			
+			<div class="actionButtons">
+	
+        	    <ui:include src="/layout/buttons.xhtml">
+            		<ui:param name="entityHome" value="#{courseHome}" />
+            		<ui:param name="view" value="member/courseList" />
+            	</ui:include>
+            
+        	</div>
+			
+			
+		</h:form>		
+
+    </ui:define>
+</ui:composition>
