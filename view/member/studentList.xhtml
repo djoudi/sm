@@ -1,0 +1,112 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form  styleClass="edit">
+
+        <rich:simpleTogglePanel label="#{messages['Student_Search_Filter']}" switchType="ajax">
+
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">#{messages['Student_Name']}</ui:define>
+                <h:inputText id="name" value=""/>
+            </s:decorate>
+
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">#{messages['Match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{studentList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['Search']}" action="/member/studentList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">student Search Results (#{empty studentList.resultList ? 0 : (studentList.paginated ? studentList.resultCount : studentList.resultList.size)})</f:facet>
+    <div class="results">
+
+    <h:outputText value="#{messages['No_Result']}"
+               rendered="#{empty studentList.resultList}"/>
+
+    <rich:dataTable 
+                var="_student"
+              value="#{studentList.resultList}"
+           rendered="#{not empty studentList.resultList}">
+        
+        <h:column>
+            <f:facet name="header">
+            	<h:outputText value="#{messages['Student_No']}" />
+            </f:facet>
+            <h:outputText value="#{_student.addmissionNo}"/>
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="/layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{studentList}"/>
+                    <ui:param name="propertyLabel" value="#{messages['Student_Name']}"/>
+                    <ui:param name="propertyPath" value="student.fullName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_student.fullName}"/>
+        </h:column>
+        
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['Action']}</f:facet>
+            <s:link view="/member/studentView.xhtml" rendered="false"
+                   value="#{messages['View']}"
+             propagation="none"
+                      >
+                <f:param name="studentId"
+                        value="#{_student.id}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/member/studentEdit.xhtml"
+                   value="#{messages['Edit']}"
+             propagation="none"                      
+                rendered="#{empty from}">
+                <f:param name="studentId"
+                        value="#{_student.id}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <ui:include src="/layout/paging.xhtml">
+        	<ui:param name="entityQuery" value="#{studentList}" />
+        	<ui:param name="view" value="/member/studentList.xhtml" />
+        </ui:include>
+        
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/member/studentEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="#{messages['Create_student']}">
+            <f:param name="studentId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>
