@@ -16,6 +16,8 @@
         <s:link id="menuLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout" rendered="#{identity.loggedIn}" propagation="none"/>
         <s:link  view="/member/batchList.xhtml" value="Batch List" rendered="#{identity.loggedIn}" propagation="none"/>
         <s:link  view="/member/courseList.xhtml" value="Course List" rendered="#{identity.loggedIn}" propagation="none"/>
+        <s:link  view="/member/studentList.xhtml" value="Student List" rendered="#{identity.loggedIn}" propagation="none"/>
+        <s:link  view="/member/employeeList.xhtml" value="Employee List" rendered="#{identity.loggedIn}" propagation="none"/>
         <s:link  view="/member/generalSettings.xhtml" value="General Settings" rendered="#{identity.loggedIn}" propagation="none"/>
         <s:link  view="/member/dashboard.xhtml" value="Dashboard" rendered="#{identity.loggedIn}" propagation="none"/>
     </rich:toolBarGroup>

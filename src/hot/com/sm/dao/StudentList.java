@@ -14,7 +14,7 @@ public class StudentList extends EntityQuery<Student>
 
 	private static final String EJBQL = "select student from Student student";
 
-	private static final String[] RESTRICTIONS = { "lower(student.firstName) like lower(concat('%',#{studentList.student.firstName},'%'))", };
+	private static final String[] RESTRICTIONS = { "lower(student.firstname) like lower(concat('%',#{studentList.student.firstname},'%'))", };
 
 	private Student student = new Student();
 

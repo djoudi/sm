@@ -25,12 +25,10 @@ import com.sm.model.enums.Gender;
  * @author Omid Pourhadi omidpourhadi [AT] gmail [DOT] com
  */
 @MappedSuperclass
-public abstract class StudentVO extends PO
+public abstract class StudentVO extends MemberVO
 {
 
-	private String firstName;
 	private String middleName;
-	private String lastName;
 	private Batch batch;
 	private Date birthDate;
 	private Gender gender;
@@ -44,16 +42,6 @@ public abstract class StudentVO extends PO
 	private String addmissionNo;
 	private Set<Guardian> guardian = new HashSet<Guardian>(0);
 
-	@Column(name = "first_name")
-	public String getFirstName()
-	{
-		return firstName;
-	}
-
-	public void setFirstName(String firstName)
-	{
-		this.firstName = firstName;
-	}
 
 	@Column(name = "middle_name")
 	public String getMiddleName()
@@ -64,17 +52,6 @@ public abstract class StudentVO extends PO
 	public void setMiddleName(String middleName)
 	{
 		this.middleName = middleName;
-	}
-
-	@Column(name = "last_name")
-	public String getLastName()
-	{
-		return lastName;
-	}
-
-	public void setLastName(String lastName)
-	{
-		this.lastName = lastName;
 	}
 
 	@ManyToOne

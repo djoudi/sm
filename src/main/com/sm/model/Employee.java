@@ -10,8 +10,8 @@ import javax.persistence.UniqueConstraint;
  * omidpourhadi [AT] gmail [DOT] com
  */
 @Entity
-@Table(name = "student", uniqueConstraints = { @UniqueConstraint(columnNames = "addmission_no") })
-public class Student extends StudentVO
+@Table(name = "employee", uniqueConstraints = { @UniqueConstraint(columnNames = "employee_no") })
+public class Employee extends EmployeeVo
 {
 
 	@Transient
@@ -19,5 +19,5 @@ public class Student extends StudentVO
 	{
 		return getFirstname() + " " + getLastname();
 	}
-
+	
 }

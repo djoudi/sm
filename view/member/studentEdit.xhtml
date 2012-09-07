@@ -27,7 +27,7 @@
 				
 				<s:decorate template="/layout/edit.xhtml">
 					<ui:define name="label">#{messages['First_Name']}</ui:define>
-					<h:inputText value="#{studentHome.instance.firstName}" />
+					<h:inputText value="#{studentHome.instance.firstname}" />
 				</s:decorate>
 				
 				<s:decorate template="/layout/edit.xhtml">
@@ -37,7 +37,7 @@
 				
 				<s:decorate template="/layout/edit.xhtml">
 					<ui:define name="label">#{messages['Last_Name']}</ui:define>
-					<h:inputText value="#{studentHome.instance.lastName}" />
+					<h:inputText value="#{studentHome.instance.lastname}" />
 				</s:decorate>
 				
 				<s:decorate template="/layout/edit.xhtml">
@@ -66,7 +66,7 @@
 				<s:decorate template="/layout/edit.xhtml">
 					<ui:define name="label">#{messages['Blood_Group']}</ui:define>
 					<h:selectOneMenu value="#{studentHome.instance.bloodGroup}">
-						<s:selectItems var="_blood" value="#{bloodGroupList}" noSelectionLabel="-- #{messages['Please_Select']} --" />
+						<s:selectItems var="_blood" value="#{bloodGroupList}" label="#{_blood.label}" noSelectionLabel="-- #{messages['Please_Select']} --" />
 						<s:convertEnum />						
 					</h:selectOneMenu>
 				</s:decorate>
