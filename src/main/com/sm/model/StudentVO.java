@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +30,7 @@ public abstract class StudentVO extends MemberVO
 {
 
 	private String middleName;
-	private Batch batch;
+	private Set<BatchStudent> batchStudents = new HashSet<BatchStudent>(0);
 	private Date birthDate;
 	private Gender gender;
 	private BloodGroup bloodGroup;
@@ -42,7 +43,6 @@ public abstract class StudentVO extends MemberVO
 	private String addmissionNo;
 	private Set<Guardian> guardian = new HashSet<Guardian>(0);
 
-
 	@Column(name = "middle_name")
 	public String getMiddleName()
 	{
@@ -52,18 +52,6 @@ public abstract class StudentVO extends MemberVO
 	public void setMiddleName(String middleName)
 	{
 		this.middleName = middleName;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "bacth_id")
-	public Batch getBatch()
-	{
-		return batch;
-	}
-
-	public void setBatch(Batch batch)
-	{
-		this.batch = batch;
 	}
 
 	@Column(name = "birth_date")
@@ -184,7 +172,7 @@ public abstract class StudentVO extends MemberVO
 		this.addmissionNo = addmissionNo;
 	}
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="student")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
 	public Set<Guardian> getGuardian()
 	{
 		return guardian;
@@ -194,7 +182,20 @@ public abstract class StudentVO extends MemberVO
 	{
 		this.guardian = guardian;
 	}
-	
-	
+
+	@OneToMany(
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE },
+			fetch = FetchType.LAZY,
+			mappedBy = "student")
+	@org.hibernate.annotations.Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+	public Set<BatchStudent> getBatchStudents()
+	{
+		return batchStudents;
+	}
+
+	public void setBatchStudents(Set<BatchStudent> batchStudents)
+	{
+		this.batchStudents = batchStudents;
+	}
 
 }

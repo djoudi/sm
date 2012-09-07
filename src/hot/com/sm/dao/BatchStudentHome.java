@@ -1,34 +1,35 @@
 package com.sm.dao;
 
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.core.Events;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.framework.EntityHome;
 
+import com.sm.model.BatchStudent;
 import com.sm.model.Student;
 import com.sm.util.SchoolConstants;
 
 /**
  * @author Omid Pourhadi omidpourhadi [AT] gmail [DOT] com
  */
-@Name("studentHome")
-public class StudentHome extends EntityHome<Student>
+@Name("batchStudentHome")
+public class BatchStudentHome extends EntityHome<BatchStudent>
 {
 
-	public void setStudentId(Long id)
+	public void setBatchStudentId(Long id)
 	{
 		setId(id);
 	}
 
-	public Long getStudentId()
+	public Long getBatchStudentId()
 	{
 		return (Long) getId();
 	}
 
 	@Override
-	protected Student createInstance()
+	protected BatchStudent createInstance()
 	{
-		Student student = new Student();
-		return student;
+		BatchStudent batchStudent = new BatchStudent();
+		return batchStudent;
 	}
 
 	public void load()
@@ -50,7 +51,7 @@ public class StudentHome extends EntityHome<Student>
 		return true;
 	}
 
-	public Student getDefinedInstance()
+	public BatchStudent getDefinedInstance()
 	{
 		return isIdDefined() ? getInstance() : null;
 	}
@@ -66,9 +67,18 @@ public class StudentHome extends EntityHome<Student>
 	public String persist()
 	{
 		wire();
-		super.persist();
-		Events.instance().raiseEvent(SchoolConstants.ADD_STUDENT_TO_BATCH, getInstance());
-		return "persisted";
+		return super.persist();
+	}
+
+	// TODO : catch exception
+	@Observer(value = SchoolConstants.ADD_STUDENT_TO_BATCH)
+	public void addStudentToBatch(Student student)
+	{
+		if (student != null)
+		{
+			getInstance().setStudent(student);
+		}
+		persist();
 	}
 
 }

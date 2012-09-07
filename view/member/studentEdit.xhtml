@@ -42,7 +42,7 @@
 				
 				<s:decorate template="/layout/edit.xhtml">
 					<ui:define name="label">#{messages['Batch']}</ui:define>
-					<h:selectOneMenu value="#{studentHome.instance.batch}" required="true">
+					<h:selectOneMenu value="#{batchStudentHome.instance.batch}" required="true">
 						<s:selectItems value="#{batchList.resultList}" var="_batch" label="#{_batch.name}" noSelectionLabel="-- #{messages['Please_Select']} --"/>
 						<s:convertEntity />
 					</h:selectOneMenu>

@@ -21,6 +21,7 @@ public abstract class BatchVO extends PO
 	private Date startDate;
 	private Date endDate;
 	private Set<Course> courses = new HashSet<Course>(0);
+	private Set<BatchStudent> batchStudents = new HashSet<BatchStudent>(0);
 
 	@Column(name="name")
 	public String getName()
@@ -67,6 +68,19 @@ public abstract class BatchVO extends PO
 	{
 		this.courses = courses;
 	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "batch")
+	public Set<BatchStudent> getBatchStudents()
+	{
+		return batchStudents;
+	}
+
+	public void setBatchStudents(Set<BatchStudent> batchStudents)
+	{
+		this.batchStudents = batchStudents;
+	}
+	
+	
 	
 	
 
