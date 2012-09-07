@@ -1,0 +1,98 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:omid="http://omidbiz.com/datePicker"
+    template="/layout/template.xhtml">
+
+    <ui:define name="body">
+		
+		<h:form>
+			<rich:panel>
+				<f:facet name="header"><h:outputText value="#{messages['Employee']}" /></f:facet>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Employee_No']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.employeeNo}"  required="true"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Join_Date']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.joinDate}"  required="true"/>
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['First_Name']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.firstname}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Middle_Name']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.middleName}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Last_Name']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.lastname}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Gender']}</ui:define>
+					<h:selectOneMenu value="#{employeeHome.instance.gender}">
+						<s:convertEnum />
+						<s:enumItem enumValue="MALE" itemLabel="#{messages['MALE']}"></s:enumItem>
+						<s:enumItem enumValue="FEMALE" itemLabel="#{messages['FEMALE']}"></s:enumItem>
+					</h:selectOneMenu>
+				</s:decorate>	
+				
+				
+				
+				<div style="clear:both;" />
+				
+			</rich:panel>
+			
+			<rich:panel>
+				<f:facet name="header">#{messages['Contact_Detail']}</f:facet>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Address_Line1']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.employeeContactDetail.addressLine1}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Address_Line2']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.employeeContactDetail.addressLine2}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Phone']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.employeeContactDetail.phone}" />
+				</s:decorate>
+				
+				<s:decorate template="/layout/edit.xhtml">
+					<ui:define name="label">#{messages['Email']}</ui:define>
+					<h:inputText value="#{employeeHome.instance.employeeContactDetail.email}" />
+				</s:decorate>
+				
+				<div style="clear:both;" />
+				
+			</rich:panel>
+			
+			<div class="actionButtons">
+	
+        	    <ui:include src="/layout/buttons.xhtml">
+            		<ui:param name="entityHome" value="#{employeeHome}" />
+            		<ui:param name="view" value="member/employeeList" />
+            	</ui:include>
+            
+        	</div>
+			
+			
+		</h:form>		
+
+    </ui:define>
+</ui:composition>
