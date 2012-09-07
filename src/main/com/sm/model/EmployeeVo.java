@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.sm.model.enums.Gender;
 
@@ -61,6 +63,7 @@ public abstract class EmployeeVo extends MemberVO
 		this.gender = gender;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "join_date")
 	public Date getJoinDate()
 	{
